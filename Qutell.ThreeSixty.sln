@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{15B7DC9D-2640-45AF-9A3A-ADC81CE29344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qutell.ThreeSixty.Api", "src\Qutell.ThreeSixty.Api\Qutell.ThreeSixty.Api.csproj", "{2CB33B62-91B3-4CDE-8784-965104EC6569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qutell.ThreeSixty.Domain", "src\Qutell.ThreeSixty.Domain\Qutell.ThreeSixty.Domain.csproj", "{A4145D44-B109-4DBF-B160-CB2DEF52ACA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qutell.ThreeSixty.Infrastructure", "src\Qutell.ThreeSixty.Infrastructure\Qutell.ThreeSixty.Infrastructure.csproj", "{94E02D2C-CC51-47E1-B5F0-47C06695A1EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qutell.ThreeSixty.Application", "src\Qutell.ThreeSixty.Application\Qutell.ThreeSixty.Application.csproj", "{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CB33B62-91B3-4CDE-8784-965104EC6569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB33B62-91B3-4CDE-8784-965104EC6569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB33B62-91B3-4CDE-8784-965104EC6569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB33B62-91B3-4CDE-8784-965104EC6569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4145D44-B109-4DBF-B160-CB2DEF52ACA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4145D44-B109-4DBF-B160-CB2DEF52ACA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4145D44-B109-4DBF-B160-CB2DEF52ACA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4145D44-B109-4DBF-B160-CB2DEF52ACA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E02D2C-CC51-47E1-B5F0-47C06695A1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E02D2C-CC51-47E1-B5F0-47C06695A1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E02D2C-CC51-47E1-B5F0-47C06695A1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E02D2C-CC51-47E1-B5F0-47C06695A1EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2CB33B62-91B3-4CDE-8784-965104EC6569} = {15B7DC9D-2640-45AF-9A3A-ADC81CE29344}
+		{A4145D44-B109-4DBF-B160-CB2DEF52ACA3} = {15B7DC9D-2640-45AF-9A3A-ADC81CE29344}
+		{94E02D2C-CC51-47E1-B5F0-47C06695A1EA} = {15B7DC9D-2640-45AF-9A3A-ADC81CE29344}
+		{BF59CD7B-1AD9-4CB4-BB75-AF9AF635DAD9} = {15B7DC9D-2640-45AF-9A3A-ADC81CE29344}
+	EndGlobalSection
+EndGlobal
