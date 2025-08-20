@@ -85,6 +85,20 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
         
+    - name: Normalize line endings
+      run: |
+        echo "Installing dos2unix..."
+        sudo apt-get update
+        sudo apt-get install -y dos2unix
+        
+        echo "Normalizing line endings..."
+        # Convert all files to Unix line endings and ensure single newline at end
+        find . -name "*.cs" -type f -exec dos2unix {} \;
+        find . -name "*.cs" -type f -exec sed -i -e '$a\' {} \;
+        find . -name "*.cs" -type f -exec sed -i '/^$/d' {} \;
+        
+        echo "Line endings normalized successfully!"
+        
     - name: Install dotnet-format
       run: dotnet tool install --global dotnet-format
       
