@@ -10,7 +10,7 @@ namespace Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups
     {
         public TimeZone()
         {
+
         }
-       
     }
 }
