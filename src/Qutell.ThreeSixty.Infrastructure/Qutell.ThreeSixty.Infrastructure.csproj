@@ -1,3 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <ProjectReference Include="..\Qutell.ThreeSixty.Application\Qutell.ThreeSixty.Application.csproj" />
+  </ItemGroup>
 </Project>
