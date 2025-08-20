@@ -14,4 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Qutell.ThreeSixty.Application\Qutell.ThreeSixty.Application.csproj" />
+    <ProjectReference Include="..\Qutell.ThreeSixty.Infrastructure\Qutell.ThreeSixty.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
