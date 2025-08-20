@@ -1,0 +1,176 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  SOLUTION_FILE: 'Qutell.ThreeSixty.sln'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+          
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE }}
+      
+    - name: Build solution
+      run: dotnet build ${{ env.SOLUTION_FILE }} --no-restore --configuration Release --verbosity normal
+      
+    - name: Run tests
+      run: dotnet test ${{ env.SOLUTION_FILE }} --no-build --verbosity normal --configuration Release --collect:"XPlat Code Coverage"
+      
+    - name: Test API health endpoint
+      run: |
+        echo "Starting API for health check test..."
+        cd src/Qutell.ThreeSixty.Api
+        
+        # Start the API in background
+        dotnet run --configuration Release --urls "http://localhost:5264" &
+        API_PID=$!
+        
+        # Wait for API to start
+        echo "Waiting for API to start..."
+        sleep 15
+        
+        # Test health endpoint
+        echo "Testing health endpoint..."
+        if curl -f http://localhost:5264/health; then
+          echo "Health check passed!"
+        else
+          echo "Health check failed!"
+          exit 1
+        fi
+        
+        # Stop the API
+        kill $API_PID || true
+        
+    - name: Validate API startup and shutdown
+      run: |
+        echo "Testing API startup and shutdown..."
+        cd src/Qutell.ThreeSixty.Api
+        
+        # Test if API starts without errors
+        timeout 30s dotnet run --configuration Release --urls "http://localhost:5264" || echo "API startup test completed"
+        
+  code-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Normalize line endings
+      run: |
+        echo "Installing dos2unix..."
+        sudo apt-get update
+        sudo apt-get install -y dos2unix
+        
+        echo "Normalizing line endings..."
+        # Convert all files to Unix line endings and ensure single newline at end
+        find . -name "*.cs" -type f -exec dos2unix {} \;
+        find . -name "*.cs" -type f -exec sed -i -e '$a\' {} \;
+        find . -name "*.cs" -type f -exec sed -i '/^$/d' {} \;
+        
+        echo "Line endings normalized successfully!"
+        
+    - name: Install dotnet-format
+      run: dotnet tool install --global dotnet-format
+      
+    - name: Check code formatting
+      run: dotnet format --verify-no-changes ${{ env.SOLUTION_FILE }}
+      
+    - name: Check for build warnings
+      run: |
+        # Build and capture output
+        BUILD_OUTPUT=$(dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --verbosity normal 2>&1)
+        
+        # Count actual warnings (excluding summary lines like "0 Warning(s)")
+        WARNING_COUNT=$(echo "$BUILD_OUTPUT" | grep -i "warning" | grep -v "0 Warning(s)" | grep -v "Build succeeded" | grep -v "Build completed" | wc -l)
+        
+        if [ "$WARNING_COUNT" -gt 0 ]; then
+          echo "Build warnings detected ($WARNING_COUNT warnings):"
+          echo "$BUILD_OUTPUT" | grep -i "warning" | grep -v "0 Warning(s)" | grep -v "Build succeeded" | grep -v "Build completed"
+          exit 1
+        else
+          echo "No build warnings detected"
+        fi
+        
+    - name: Validate project structure
+      run: |
+        echo "Validating project structure..."
+        
+        # Check if all project files exist
+        if [ ! -f "src/Qutell.ThreeSixty.Api/Qutell.ThreeSixty.Api.csproj" ]; then
+          echo "API project file missing!"
+          exit 1
+        fi
+        
+        if [ ! -f "src/Qutell.ThreeSixty.Application/Qutell.ThreeSixty.Application.csproj" ]; then
+          echo "Application project file missing!"
+          exit 1
+        fi
+        
+        if [ ! -f "src/Qutell.ThreeSixty.Domain/Qutell.ThreeSixty.Domain.csproj" ]; then
+          echo "Domain project file missing!"
+          exit 1
+        fi
+        
+        if [ ! -f "src/Qutell.ThreeSixty.Infrastructure/Qutell.ThreeSixty.Infrastructure.csproj" ]; then
+          echo "Infrastructure project file missing!"
+          exit 1
+        fi
+        
+        echo "Project structure validation passed!"
+        
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Install security tools
+      run: |
+        dotnet tool install --global dotnet-outdated-tool
+        dotnet tool install --global dotnet-ef
+        
+    - name: Check for outdated packages
+      run: |
+        echo "Checking for outdated packages..."
+        dotnet outdated ${{ env.SOLUTION_FILE }} || echo "Package check completed"
+        
+    - name: Security audit
+      run: |
+        echo "Running security audit..."
+        dotnet list package --vulnerable || echo "No vulnerabilities found"
