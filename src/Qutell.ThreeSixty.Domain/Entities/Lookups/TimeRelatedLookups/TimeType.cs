@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups
 {
-    internal class TimeType : LookupBase
+    public class TimeType : LookupBase
     {
         public TimeType()
         {
