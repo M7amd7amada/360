@@ -110,10 +110,12 @@ jobs:
         # Build and capture output
         BUILD_OUTPUT=$(dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --verbosity normal 2>&1)
         
-        # Check for warnings (case insensitive)
-        if echo "$BUILD_OUTPUT" | grep -i "warning"; then
-          echo "Build warnings detected:"
-          echo "$BUILD_OUTPUT" | grep -i "warning"
+        # Count actual warnings (excluding summary lines like "0 Warning(s)")
+        WARNING_COUNT=$(echo "$BUILD_OUTPUT" | grep -i "warning" | grep -v "0 Warning(s)" | grep -v "Build succeeded" | grep -v "Build completed" | wc -l)
+        
+        if [ "$WARNING_COUNT" -gt 0 ]; then
+          echo "Build warnings detected ($WARNING_COUNT warnings):"
+          echo "$BUILD_OUTPUT" | grep -i "warning" | grep -v "0 Warning(s)" | grep -v "Build succeeded" | grep -v "Build completed"
           exit 1
         else
           echo "No build warnings detected"
