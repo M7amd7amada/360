@@ -2,9 +2,9 @@ using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog((context, services, configuration) =>
    configuration.ReadFrom.Configuration(context.Configuration));
-builder.Host.UseSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
