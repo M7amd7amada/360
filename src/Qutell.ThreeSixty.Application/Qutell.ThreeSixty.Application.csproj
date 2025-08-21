@@ -1,1 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Qutell.ThreeSixty.Domain\Qutell.ThreeSixty.Domain.csproj" />
+  </ItemGroup>
+</Project>
