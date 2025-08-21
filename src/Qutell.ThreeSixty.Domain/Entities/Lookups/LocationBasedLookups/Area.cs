@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qutell.ThreeSixty.Domain.Entities.Lookups.LocationBasedLookups
 {
-    public class Area : LookupBase
+    public class Area(ILogger<Area> logger) : LookupBase
     {
         public int CityId { get; set; }
     }

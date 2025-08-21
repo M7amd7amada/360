@@ -7,6 +7,13 @@ charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+tab_width = 4
+indent_size = 4
+dotnet_style_coalesce_expression = true:warning
+dotnet_style_null_propagation = true:warning
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_auto_properties = true:silent
 
 # C# files
 [*.cs]
@@ -38,15 +45,15 @@ dotnet_naming_rule.static_readonly_fields_should_be_pascal_case.style = pascal_c
 
 dotnet_naming_rule.parameters_should_be_camel_case.severity = warning
 dotnet_naming_rule.parameters_should_be_camel_case.symbols = parameters
-dotnet_naming_rule.parameters_should_be_camel_case.style = camel_case
+dotnet_naming_rule.parameters_should_be_camel_case.style = camel_case_with_underscore
 
 dotnet_naming_rule.local_functions_should_be_camel_case.severity = warning
 dotnet_naming_rule.local_functions_should_be_camel_case.symbols = local_functions
-dotnet_naming_rule.local_functions_should_be_camel_case.style = camel_case
+dotnet_naming_rule.local_functions_should_be_camel_case.style = camel_case_with_underscore
 
 dotnet_naming_rule.locals_should_be_camel_case.severity = warning
 dotnet_naming_rule.locals_should_be_camel_case.symbols = locals
-dotnet_naming_rule.locals_should_be_camel_case.style = camel_case
+dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_with_underscore
 
 # Symbol specifications
 dotnet_naming_symbols.interface.applicable_kinds = interface
@@ -162,6 +169,17 @@ dotnet_diagnostic.CA1725.severity = warning
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_style = space
 indent_size = 2
+csharp_indent_labels = one_less_than_current
+csharp_space_around_binary_operators = before_and_after
+csharp_using_directive_placement = outside_namespace:silent
+csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_primary_constructors = true:suggestion
+csharp_prefer_system_threading_lock = true:suggestion
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
+dotnet_diagnostic.S6672.severity = none
 
 # XML config files
 [*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
