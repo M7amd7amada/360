@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Qutell.ThreeSixty.Infrastructure.Data;
-
 using Serilog;
 
 
