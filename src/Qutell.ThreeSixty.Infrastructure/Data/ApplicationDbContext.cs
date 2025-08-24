@@ -4,6 +4,7 @@ using Qutell.ThreeSixty.Domain.Entities.Lookups.GeneralLookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.LocationBasedLookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.otherLookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups;
+using System.Linq.Expressions;
 using DomainTimeZone = Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups.TimeZone;
 
 
@@ -39,18 +40,38 @@ namespace Qutell.ThreeSixty.Infrastructure.Data
         public DbSet<DomainTimeZone> TimeZones { get; set; }
         public DbSet<TimeType> TimeTypes { get; set; }
 
-
+        
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ArgumentNullException.ThrowIfNull(modelBuilder);
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var isDeletedProp = entityType.FindProperty("IsDeleted");
+                if (isDeletedProp != null && isDeletedProp.ClrType == typeof(bool))
+                {
+                    
+                    var parameter = Expression.Parameter(entityType.ClrType, "e");
+                    var filter = Expression.Lambda(
+                        Expression.Equal(
+                            Expression.Property(parameter, "IsDeleted"),
+                            Expression.Constant(false)
+                        ),
+                        parameter
+                    );
+
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
+                }
+            }
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
+       
 
     }
 }
