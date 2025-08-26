@@ -15,7 +15,7 @@ namespace Qutell.ThreeSixty.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
-            => await _dbSet.ToListAsync();
+            => await _dbSet.AsNoTracking().ToListAsync();
 
         public async Task<TEntity> GetByIdAsync(TKey id)
             => await _dbSet.FindAsync(id);

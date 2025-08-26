@@ -5,7 +5,7 @@ namespace Qutell.ThreeSixty.Infrastructure.UnitofWork
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepository<TEntity, TKey> Repository<TEntity, TKey>() where TEntity : class;
-        Task<int> CompleteAsync();
+        Task<int> SaveChangesAsync();
     }
 
 

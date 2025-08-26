@@ -32,7 +32,7 @@ namespace Qutell.ThreeSixty.Infrastructure.UnitofWork
             return (IGenericRepository<TEntity, TKey>)_repositories[type];
         }
 
-        public async Task<int> CompleteAsync()
+        public async Task<int> SaveChangesAsync()
             => await _context.SaveChangesAsync();
 
         public void Dispose()

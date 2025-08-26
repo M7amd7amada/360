@@ -45,7 +45,7 @@ namespace Qutell.ThreeSixty.Api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateDto<TEntity> dto)
         {
             await _repository.AddAsync(dto.Entity);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangesAsync();
 
             return Ok(dto.Entity);
         }
@@ -56,7 +56,7 @@ namespace Qutell.ThreeSixty.Api.Controllers
             if (!id.Equals(dto.Id)) return BadRequest("Id mismatch.");
 
              _repository.Update(dto.Entity);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangesAsync();
 
             return Ok(dto.Entity);
         }
@@ -65,7 +65,7 @@ namespace Qutell.ThreeSixty.Api.Controllers
         public async Task<IActionResult> Delete(TKey id)
         {
             await _repository.Delete(id);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangesAsync();
             return NoContent();
         }
     }
