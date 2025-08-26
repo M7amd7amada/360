@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Qutell.ThreeSixty.Infrastructure.Data;
+using Qutell.ThreeSixty.Infrastructure.UnitofWork;
 using Serilog;
 
 
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
 });
 builder.Host.UseSerilog((context, services, configuration) =>
    configuration.ReadFrom.Configuration(context.Configuration));
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
