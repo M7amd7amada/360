@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IInterceptor, SoftDeleteInterceptor>();
 builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
 {
-    var interceptor = sp.GetServices<IInterceptor>();
+    var interceptor = sp.GetServices<IInterceptor>().ToArray(); ;
 
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"))

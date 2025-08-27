@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Qutell.ThreeSixty.Domain.Entities.Lookups;
 using System;
 
 public class SoftDeleteInterceptor : SaveChangesInterceptor
@@ -12,12 +13,12 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
         foreach (var entry in context.ChangeTracker.Entries())
         {
            
-                if (entry.State == EntityState.Deleted)
+                if (entry.State == EntityState.Deleted&&entry.Entity is ISoftDelete softDeletable)
                 {
                     entry.State = EntityState.Modified;
-                    entry.CurrentValues["IsDeleted"] = true;
+                    softDeletable.IsDeleted = true;
 
-                }
+            }
             
         }
         return base.SavingChanges(eventData, result);

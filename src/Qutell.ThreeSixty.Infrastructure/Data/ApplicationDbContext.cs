@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Qutell.ThreeSixty.Domain.Entities.Lookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.CompanyRelatedLookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.GeneralLookups;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.LocationBasedLookups;
@@ -40,30 +41,25 @@ namespace Qutell.ThreeSixty.Infrastructure.Data
         public DbSet<DomainTimeZone> TimeZones { get; set; }
         public DbSet<TimeType> TimeTypes { get; set; }
 
-        
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ArgumentNullException.ThrowIfNull(modelBuilder);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                var isDeletedProp = entityType.FindProperty("IsDeleted");
-                if (isDeletedProp != null && isDeletedProp.ClrType == typeof(bool))
+
+                if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
                 {
-                    
+
                     var parameter = Expression.Parameter(entityType.ClrType, "e");
-                    var filter = Expression.Lambda(
-                        Expression.Equal(
-                            Expression.Property(parameter, "IsDeleted"),
-                            Expression.Constant(false)
-                        ),
-                        parameter
-                    );
+                    var prperty = Expression.Property(parameter, nameof(ISoftDelete.IsDeleted));
+                    var filter = Expression.Lambda(Expression.Equal(prperty, Expression.Constant(false)), parameter);
 
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
                 }
@@ -71,7 +67,7 @@ namespace Qutell.ThreeSixty.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
-       
+
 
     }
 }
