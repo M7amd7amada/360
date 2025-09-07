@@ -1,4 +1,5 @@
-﻿using Qutell.ThreeSixty.Infrastructure.Data;
+﻿using Qutell.ThreeSixty.Application.Interfaces;
+using Qutell.ThreeSixty.Infrastructure.Data;
 using Qutell.ThreeSixty.Infrastructure.Repositories;
 
 namespace Qutell.ThreeSixty.Infrastructure.UnitofWork

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Qutell.ThreeSixty.Application.Interfaces;
 using Qutell.ThreeSixty.Infrastructure.Data;
 
 namespace Qutell.ThreeSixty.Infrastructure.Repositories

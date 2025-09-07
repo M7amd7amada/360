@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Qutell.ThreeSixty.Application.Interfaces;
 using Qutell.ThreeSixty.Application.Services;
 using Qutell.ThreeSixty.Infrastructure.Data;
 using Qutell.ThreeSixty.Infrastructure.UnitofWork;
