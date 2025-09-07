@@ -1,6 +1,6 @@
-﻿using Qutell.ThreeSixty.Infrastructure.Repositories;
+﻿
 
-namespace Qutell.ThreeSixty.Infrastructure.UnitofWork
+namespace Qutell.ThreeSixty.Application.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

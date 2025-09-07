@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Qutell.ThreeSixty.Infrastructure.Repositories;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
+using Qutell.ThreeSixty.Application.Interfaces;
+
 
 namespace Qutell.ThreeSixty.Application.Services
 {

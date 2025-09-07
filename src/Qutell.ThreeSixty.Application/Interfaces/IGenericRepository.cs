@@ -1,4 +1,4 @@
-﻿namespace Qutell.ThreeSixty.Infrastructure.Repositories
+﻿namespace Qutell.ThreeSixty.Application.Interfaces
 {
     public interface IGenericRepository<TEntity,TKey> where TEntity : class
     {
