@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Qutell.ThreeSixty.Application.Services;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.LocationBasedLookups;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
 
 namespace Qutell.ThreeSixty.Api.Controllers.LocationBasedLookupsControllers
 {
@@ -8,7 +8,7 @@ namespace Qutell.ThreeSixty.Api.Controllers.LocationBasedLookupsControllers
     [Route("api/[controller]")]
     public class CountryController : GenericController<Country, int>
     {
-        public CountryController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CountryController(ILookupCacheService<Country, int> Service) : base(Service)
         {
         }
     }

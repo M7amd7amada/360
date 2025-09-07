@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Qutell.ThreeSixty.Application.DTOs;
+using Qutell.ThreeSixty.Application.Interfaces;
 using Qutell.ThreeSixty.Application.Services;
 using Qutell.ThreeSixty.Infrastructure.Repositories;
 using Qutell.ThreeSixty.Infrastructure.UnitofWork;
@@ -13,12 +14,16 @@ namespace Qutell.ThreeSixty.Api.Controllers
     {
       
         private readonly ILookupCacheService<TEntity, TKey> _Service;
+        private IUnitOfWork _unitOfWork;
 
         public GenericController(ILookupCacheService<TEntity, TKey> Service)
         {
             _Service = Service;
            
+
         }
+
+       
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

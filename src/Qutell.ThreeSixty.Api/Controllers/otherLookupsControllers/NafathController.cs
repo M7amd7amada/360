@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
+using Qutell.ThreeSixty.Application.Services;
 
 namespace Qutell.ThreeSixty.Api.Controllers.otherLookups
 {
@@ -7,7 +7,7 @@ namespace Qutell.ThreeSixty.Api.Controllers.otherLookups
     [Route("api/[controller]")]
     public class NafathController : GenericController<NafathController, int>
     {
-        public NafathController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public NafathController(ILookupCacheService<NafathController, int> Service) : base(Service)
         {
         }
     }

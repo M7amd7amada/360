@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Qutell.ThreeSixty.Application.Services;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.LocationBasedLookups;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
 
 namespace Qutell.ThreeSixty.Api.Controllers.LocationBasedLookupsControllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AttendanceLocationController : GenericController<AttendanceLocation,int>
+    public class AttendanceLocationController : GenericController<AttendanceLocation, int>
     {
-        public AttendanceLocationController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AttendanceLocationController(ILookupCacheService<AttendanceLocation, int> Service) : base(Service)
         {
-
         }
     }
 }

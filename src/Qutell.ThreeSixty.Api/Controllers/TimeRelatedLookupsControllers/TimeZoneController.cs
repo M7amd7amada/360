@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
+using Qutell.ThreeSixty.Application.Services;
 using DomainTimeZone = Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups.TimeZone;
 
 
@@ -10,7 +10,7 @@ namespace Qutell.ThreeSixty.Api.Controllers.TimeRelatedLookupsControllers
 
     public class TimeZoneController : GenericController<DomainTimeZone, int>
     {
-        public TimeZoneController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public TimeZoneController(ILookupCacheService<DomainTimeZone, int> Service) : base(Service)
         {
         }
     }

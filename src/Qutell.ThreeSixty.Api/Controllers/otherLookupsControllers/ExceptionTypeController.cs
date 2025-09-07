@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.otherLookups;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
+using Qutell.ThreeSixty.Application.Services;
 
 namespace Qutell.ThreeSixty.Api.Controllers.otherLookups
 {
@@ -8,9 +8,8 @@ namespace Qutell.ThreeSixty.Api.Controllers.otherLookups
     [Route("api/[controller]")]
     public class ExceptionTypeController : GenericController<ExceptionType, int>
     {
-        public ExceptionTypeController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public ExceptionTypeController(ILookupCacheService<ExceptionType, int> Service) : base(Service)
         {
         }
-
     }
 }

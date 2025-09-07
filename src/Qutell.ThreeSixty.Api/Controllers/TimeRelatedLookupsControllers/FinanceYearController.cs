@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Qutell.ThreeSixty.Domain.Entities.Lookups.TimeRelatedLookups;
-using Qutell.ThreeSixty.Infrastructure.UnitofWork;
+using Qutell.ThreeSixty.Application.Services;
 
 namespace Qutell.ThreeSixty.Api.Controllers.TimeRelatedLookupsControllers
 {
@@ -8,7 +8,7 @@ namespace Qutell.ThreeSixty.Api.Controllers.TimeRelatedLookupsControllers
     [Route("api/[controller]")]
     public class FinanceYearController : GenericController<FinanceYear, int>
     {
-        public FinanceYearController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public FinanceYearController(ILookupCacheService<FinanceYear, int> Service) : base(Service)
         {
         }
     }
