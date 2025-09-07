@@ -4,6 +4,7 @@ namespace Qutell.ThreeSixty.Domain.Entities.Lookups.otherLookups
     {
         public ExceptionType()
         {
+
         }
        
     }

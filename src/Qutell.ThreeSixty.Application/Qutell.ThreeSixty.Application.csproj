@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Qutell.ThreeSixty.Domain\Qutell.ThreeSixty.Domain.csproj" />
   </ItemGroup>
 </Project>
